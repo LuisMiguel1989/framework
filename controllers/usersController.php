@@ -10,7 +10,6 @@ cLass usersController extends AppsController
     $conditions = array("conditions"=>"users.type_id=types.id");
     $this->set("users", $this->users->find("users, types",  "all", $conditions));
     $this->set("usersCount", $this->users->find("users", "count"));
-    
   }
 
   public function add(){
@@ -19,16 +18,12 @@ cLass usersController extends AppsController
       include_once(ROOT."libs".DS."password.php");
       $pass = new password();
       $_POST["password"] = $pass->getPassword($_POST["password"]);
-      //print_r($_POST);
       if ($this->users->save("users", $_POST)) {
         $this->redirect(array("controller"=>"users"));
       }else{
         $this->redirect(array("controller"=>"users", "method"=>"add"));
       }
     }
-      /*$types=$this->users->find("types");
-      print_r($types);
-      exit;*/
       
       $this->set("types", $this->users->find("types"));
       $this->_view->setView("add");
@@ -37,11 +32,8 @@ cLass usersController extends AppsController
     }
   }  
 
-
   public function edit($id){
       if ($id) {
-        //print_r($_GET);
-        //$this->set("id", $id);
         $options = array(
           "conditions" => "id=".$id
         );
@@ -49,22 +41,17 @@ cLass usersController extends AppsController
         $this->set("user", $user);
           $this->set("types", $this->users->find("types"));
       }
-      /*else{
-        $this->redirect(array("controller"=>"users"));
-      }*/
 
       if($_POST){
         if(!empty($_POST["newPassword"])){
             $pass = new password();
             $_POST["password"] = $pass->getPassword($_POST["newPassword"]);
-            //$_POST["password"] = $_POST["newPassword"];
         }
         if ($this->users->update("users", $_POST)){
           $this->redirect(
             array(
               "controller"=>"users"
-              )
-          );
+            ));
         }else{
           $this->redirect(
             array(
@@ -73,7 +60,6 @@ cLass usersController extends AppsController
             )
           );
         }
-        
       }
   }
     
@@ -107,15 +93,12 @@ cLass usersController extends AppsController
             "conditions"=>"username='$username' and users.type_id=types.id"
           );
         $user= $this->users->find("users, types", "first", $options);
-        //print_r($user);
-        //exit;
         if($pass->isValid($password, $user["password"])){
             $auth->login($user);
             $this->redirect(array("controller"=>"pages"));
         }else{
             echo "Usuario no valido";
         }
-            
         }
     }
 

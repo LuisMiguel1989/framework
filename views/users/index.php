@@ -1,5 +1,5 @@
 <h2>Listado de usuarios</h2>
-<h4>Número de usuarios: </h4> <?php  echo $usersCount; ?>
+<h4>Número de usuarios: </h4><?php echo $usersCount; ?>
 <?php if(!empty($users)): ?>
 <table>
 	<tr>
@@ -31,7 +31,6 @@
                 "arg"=>$user["users"]["id"]
             ));?>
         </td>
-        <td>
 			<!--<a href="<?php echo APP_URL."/users/edit/".$user["users"]["id"]; ?>">Edit</a>-->
 			<!--<a href="<?php echo APP_URL."/users/delete/".$user["users"]["id"]; ?>">Delete</a>-->
 		</td>
